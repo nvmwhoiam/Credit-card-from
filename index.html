@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/index.css">
+    <script type="text/javascript" src="assets/js/index.js"></script>
+    <title>Credit card</title>
+</head>
+
+<body>
+
+    <main>
+
+        <div class="cc_body">
+
+            <div class="c_card">
+
+                <div class="c_card_front">
+
+                    <img src="assets/svgs/wifi.svg" alt="" class="cc_wifi">
+
+                    <img src="assets/svgs/amex.svg" alt="" class="cc_brand">
+
+                    <div class="cc_number_body">
+
+                        <h3 class="cc_name">Card Number</h3>
+
+                        <div id="cc_numbers" class="cc_digits">
+                            **** **** **** 3221
+                        </div>
+
+                    </div>
+
+                    <div class="cc_name_body">
+
+                        <h3 class="cc_name">Card Holder</h3>
+
+                        <h2 id="cc_name">John Doe</h2>
+
+                    </div>
+
+                    <div class="cc_valid_body">
+
+                        <h3 class="cc_name">Expires</h3>
+
+                        <span class="cc_month" id="cc_month">6</span> <b>/</b> <span class="cc_year"
+                            id="cc_year">23</span>
+
+                    </div>
+
+                </div>
+
+                <div class="c_card_back">
+
+                    <div class="stripe"></div>
+
+                    <div class="cvv_stripe">
+
+                        <span class="cc_cvv" id="cc_cvv">***</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <form method="post" action="" autocomplete="off" id="cc_form" class="cc_form">
+
+                <div class="form_input">
+
+                    <label class="cc_name"> Card Holders</label>
+
+                    <input type="text" name="cc_name" placeholder="John Doe" required>
+
+                </div>
+
+                <div class="form_input">
+
+                    <label class="cc_number"> Card number</label>
+
+                    <input type="text" name="cc_numbers" inputmode="numeric" pattern="\d*" maxlength="16"
+                        placeholder="**** **** **** 3221" required>
+
+                </div>
+
+                <div class="form_container">
+
+                    <div class="form_input">
+
+                        <label class="cc_number"> Valid through</label>
+
+                        <div class="form_input_container">
+
+                            <select class="month" name="cc_month" required>
+                                <option value="">Month</option>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option selected value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+
+                            <select class="cc_year" name="cc_year" required>
+                                <option>Year</option>
+                                <option selected value="23">2023</option>
+                                <option value="24">2024</option>
+                                <option value="25">2025</option>
+                                <option value="26">2026</option>
+                                <option value="27">2027</option>
+                                <option value="28">2028</option>
+                                <option value="29">2029</option>
+                                <option value="30">2030</option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form_input">
+
+                        <label class="cc_number"> CVV</label>
+
+                        <input type="text" placeholder="***" name="cc_cvv" inputmode="numeric" pattern="\d*"
+                            maxlength="3" required>
+
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn_btn">Save</button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>
