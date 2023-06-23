@@ -141,8 +141,6 @@ window.addEventListener("load", function () {
 
         }
 
-        console.log(cc_month_form.value);
-
     });
 
     cc_year_form.addEventListener("change", function () {
