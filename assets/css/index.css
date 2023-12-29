@@ -34,41 +34,6 @@ html a:hover,
 body a:hover {
   text-decoration: none;
 }
-::-webkit-scrollbar {
-  width: 5px;
-}
-::-webkit-scrollbar-track {
-  background: #555;
-}
-::-webkit-scrollbar-thumb {
-  background: #282828;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #ddd;
-}
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  margin: 0;
-  padding: 0;
-  font-size: inherit;
-}
-li {
-  text-decoration: none;
-  list-style: none;
-}
-img {
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-}
-nav a {
-  text-decoration: none;
-}
 textarea,
 select,
 input[type="password"],
@@ -85,14 +50,6 @@ input[type="search"] {
   background-color: rgba(0, 0, 0, 0.1);
   position: relative;
 }
-select option {
-  width: 100%;
-  padding: 10px;
-  font-family: inherit;
-  color: #e5e5e5;
-  background-color: #4a6572;
-  position: relative;
-}
 button {
   font-family: inherit;
   color: #d4f1f4;
@@ -104,15 +61,11 @@ button {
 button.btn_btn {
   padding: 10px 20px;
 }
-button[disabled] {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-}
 main {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 16px;
 }
 main .cc_body {
   width: 500px;
@@ -129,33 +82,33 @@ main .cc_body .c_card_front,
 main .cc_body .c_card_back {
   width: inherit;
   height: inherit;
-  padding: 20px;
-  border-radius: 20px;
-  background: #7f7fd5;
-  background: linear-gradient(to right, 152, #86a8e7, #7f7fd5);
+  padding: 16px;
+  border-radius: 12px;
+  background: #02aab0;
+  background: linear-gradient(to right, rebeccapurple, rgb(133, 105, 161));
   position: absolute;
   backface-visibility: hidden;
   transition: all 600ms ease;
 }
-main .cc_body .c_card_front .cc_name,
-main .cc_body .c_card_back .cc_name {
+main .cc_body .c_card_front .ccName,
+main .cc_body .c_card_back .ccName {
   font-size: 12px;
-  color: #4a6572;
+  color: #232f34;
 }
-main .cc_body .c_card_front .cc_wifi {
+main .cc_body .c_card_front .ccWifi {
   width: 30px;
   height: 30px;
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 16px;
+  left: 16px;
   transform: rotate(90deg);
 }
-main .cc_body .c_card_front .cc_brand {
+main .cc_body .c_card_front .ccBrand {
   width: 48px;
   height: 48px;
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
 }
 main .cc_body .c_card_front .cc_number_body {
   position: absolute;
@@ -169,21 +122,21 @@ main .cc_body .c_card_front .cc_number_body {
 main .cc_body .c_card_front .cc_number_body h2 {
   margin-bottom: 5px;
 }
-main .cc_body .c_card_front .cc_number_body .cc_digits {
+main .cc_body .c_card_front .cc_number_body .ccDigits {
   font-size: 20px;
   letter-spacing: 5px;
 }
 main .cc_body .c_card_front .cc_name_body,
 main .cc_body .c_card_front .cc_valid_body {
   position: absolute;
-  bottom: 20px;
+  bottom: 16px;
 }
 main .cc_body .c_card_front .cc_name_body {
-  left: 20px;
+  left: 16px;
   text-transform: capitalize;
 }
 main .cc_body .c_card_front .cc_valid_body {
-  right: 20px;
+  right: 16px;
 }
 main .cc_body .c_card_back {
   transform: rotateY(180deg);
@@ -196,7 +149,7 @@ main .cc_body .c_card_back .stripe {
   top: 20px;
   left: 0;
 }
-main .cc_body .c_card_back .cvv_stripe {
+main .cc_body .c_card_back .cvvStripe {
   width: 100%;
   height: 30px;
   background-color: #d4f1f4;
@@ -205,7 +158,7 @@ main .cc_body .c_card_back .cvv_stripe {
   left: 0;
   transform: translateY(-50%);
 }
-main .cc_body .c_card_back .cvv_stripe .cc_cvv {
+main .cc_body .c_card_back .cvvStripe .ccCvv {
   position: absolute;
   top: 50%;
   right: 20px;
@@ -254,4 +207,4 @@ main button {
 }
 .form_container .form_input_container select {
   min-width: 80px;
-}
+} /*# sourceMappingURL=index.css.map */

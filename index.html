@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/index.css">
-    <script type="text/javascript" src="assets/js/index.js"></script>
-    <title>Credit card</title>
+    <script defer src="assets/js/index.js"></script>
+    <title>Credit card Form</title>
 </head>
 
 <body>
@@ -20,15 +20,15 @@
 
                 <div class="c_card_front">
 
-                    <img src="assets/svgs/wifi.svg" alt="" class="cc_wifi">
+                    <img src="assets/svgs/wifi.svg" alt="" class="ccWifi">
 
-                    <img src="assets/svgs/amex.svg" alt="" class="cc_brand">
+                    <img src="assets/svgs/amex.svg" alt="" class="ccBrand">
 
                     <div class="cc_number_body">
 
-                        <h3 class="cc_name">Card Number</h3>
+                        <h3 class="ccName">Card Number</h3>
 
-                        <div id="cc_numbers" class="cc_digits">
+                        <div id="ccNumberCard" class="ccDigits">
                             **** **** **** 3221
                         </div>
 
@@ -36,18 +36,21 @@
 
                     <div class="cc_name_body">
 
-                        <h3 class="cc_name">Card Holder</h3>
+                        <h3 class="ccName">Card Holder</h3>
 
-                        <h2 id="cc_name">John Doe</h2>
+                        <h2 id="ccNameCard">John Doe</h2>
 
                     </div>
 
                     <div class="cc_valid_body">
 
-                        <h3 class="cc_name">Expires</h3>
+                        <h3 class="ccName">Expires</h3>
 
-                        <span class="cc_month" id="cc_month">6</span> <b>/</b> <span class="cc_year"
-                            id="cc_year">23</span>
+                        <span class="ccMonth" id="ccMonthCard">6</span>
+
+                        <b>/</b>
+
+                        <span class="ccYear" id="ccYearCard">23</span>
 
                     </div>
 
@@ -57,9 +60,9 @@
 
                     <div class="stripe"></div>
 
-                    <div class="cvv_stripe">
+                    <div class="cvvStripe">
 
-                        <span class="cc_cvv" id="cc_cvv">***</span>
+                        <span class="ccCvv" id="ccCvvCard">***</span>
 
                     </div>
 
@@ -67,22 +70,22 @@
 
             </div>
 
-            <form method="post" action="" autocomplete="off" id="cc_form" class="cc_form">
+            <form method="post" action="#" autocomplete="off" id="cc_form" class="cc_form">
 
                 <div class="form_input">
 
-                    <label class="cc_name"> Card Holders</label>
+                    <label class="cc_name" for="ccNameForm"> Card Holder</label>
 
-                    <input type="text" name="cc_name" placeholder="John Doe" required>
+                    <input type="text" name="cc_name" id="ccNameForm" placeholder="John Doe" required>
 
                 </div>
 
                 <div class="form_input">
 
-                    <label class="cc_number"> Card number</label>
+                    <label class="cc_number" for="ccNumberForm"> Card number</label>
 
-                    <input type="text" name="cc_numbers" inputmode="numeric" pattern="\d*" maxlength="16"
-                        placeholder="**** **** **** 3221" required>
+                    <input type="text" name="cc_numbers" id="ccNumberForm" inputmode="numeric" pattern="\d*"
+                        maxlength="16" placeholder="**** **** **** 3221" required>
 
                 </div>
 
@@ -90,11 +93,11 @@
 
                     <div class="form_input">
 
-                        <label class="cc_number"> Valid through</label>
+                        <label class="cc_month" for="ccMonthForm"> Valid through</label>
 
                         <div class="form_input_container">
 
-                            <select class="month" name="cc_month" required>
+                            <select class="month" name="cc_month" id="ccMonthForm" required>
                                 <option value="">Month</option>
                                 <option value="01">01</option>
                                 <option value="02">02</option>
@@ -128,10 +131,10 @@
 
                     <div class="form_input">
 
-                        <label class="cc_number"> CVV</label>
+                        <label class="cc_cvv" for="ccCvvForm"> CVV</label>
 
-                        <input type="text" placeholder="***" name="cc_cvv" inputmode="numeric" pattern="\d*"
-                            maxlength="3" required>
+                        <input type="text" placeholder="***" name="cc_cvv" id="ccCvvForm" inputmode="numeric"
+                            pattern="\d*" maxlength="3" required>
 
                     </div>
 
