@@ -121,12 +121,14 @@ formElements.cardNumber.addEventListener("input", function () {
 
     if (cardNumberValue.length < 1) {
         maskedNumbers = formElements.cardNumber.getAttribute("placeholder");
-    } else if (brand === "amex") {
-        formElements.cardNumber.setAttribute("maxlength", "15");
-        return maskedNumbers = `${cardNumberValue.substr(0, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(4, 6).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(10, 5)}`;
     } else {
-        maskedNumbers = `${cardNumberValue.substr(0, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(4, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(8, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(12, 4)}`;
-        formElements.cardNumber.setAttribute("maxlength", "16");
+        if (brand === "amex") {
+            maskedNumbers = `${cardNumberValue.substr(0, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(4, 6).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(10, 5)}`;
+            formElements.cardNumber.setAttribute("maxlength", "15");
+        } else {
+            maskedNumbers = `${cardNumberValue.substr(0, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(4, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(8, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(12, 4)}`;
+            formElements.cardNumber.setAttribute("maxlength", "16");
+        }
     }
 
     cardInfoElements.cardNumber.innerText = maskedNumbers;
@@ -136,6 +138,8 @@ formElements.cardNumber.addEventListener("input", function () {
         currentBrand = brand;  // Update the current brand
     }
 });
+
+
 
 // Store the original card number and card svv when the input is focused 
 let originalCardNumber = "";

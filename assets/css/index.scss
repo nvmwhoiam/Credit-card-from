@@ -382,15 +382,18 @@ main {
         }
 
         .credit_card_front {
-            .wifi_icon {
+
+            .wifi_icon,
+            .card_brand_logo {
                 width: 48px;
                 height: 48px;
+            }
+
+            .wifi_icon {
                 @include position(absolute, $top: $md_p, $left: $md_p);
             }
 
             .card_brand_logo {
-                width: 48px;
-                height: 48px;
                 @include position(absolute, $top: $md_p, $right: $md_p);
             }
 
@@ -491,41 +494,35 @@ main {
             }
         }
 
-        button {
-            background-color: $mainColour;
-            border-radius: 0;
-        }
-    }
+        .form_container {
+            display: flex;
+            gap: $md_p;
 
-
-    .form_container {
-        display: flex;
-        gap: $md_p;
-
-        .form_input {
-            width: 100%;
-
-            &_container {
-                display: flex;
-                gap: $md_p;
+            .form_input {
                 width: 100%;
 
-                select {
-                    min-width: 80px;
-                    max-height: 200px;
-                }
+                &_container {
+                    width: 100%;
+                    display: flex;
+                    gap: $md_p;
 
-                option {
-                    background-color: var(--BackColour2);
+                    select {
+                        min-width: 80px;
+                    }
 
-                    &.past_month {
-                        color: $borderColor;
+                    option {
+                        background-color: var(--BackColour2);
+
+                        &.past_month {
+                            color: $borderColor;
+                        }
                     }
                 }
             }
         }
 
         button {
+            background-color: $mainColour;
             border-radius: 0;
         }
     }
