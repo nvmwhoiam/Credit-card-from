@@ -1,8 +1,5 @@
-// Get the current year
-const year = new Date();
-
 // Function to identify credit card brand based on number
-function cc_brand_id(cur_val) {
+function creditCardValidator(creditCardValue) {
     // Define regular expressions for each card brand
     const regexes = {
         // JCB
@@ -22,11 +19,11 @@ function cc_brand_id(cur_val) {
     };
 
     // Remove non-digit characters from input
-    cur_val = cur_val.replace(/\D/g, '');
+    creditCardValue = creditCardValue.replace(/\D/g, '');
 
     // Iterate through regexes to identify the brand
     for (const brand in regexes) {
-        if (cur_val.match(regexes[brand])) {
+        if (creditCardValue.match(regexes[brand])) {
             return brand;
         }
     }
@@ -34,108 +31,227 @@ function cc_brand_id(cur_val) {
     return "unknown";
 }
 
-// Get DOM elements
-const cardInfoElements = {
-    name: document.getElementById("ccNameCard"),
-    number: document.getElementById("ccNumberCard"),
-    month: document.getElementById("ccMonthCard"),
-    year: document.getElementById("ccYearCard"),
-    cvv: document.getElementById("ccCvvCard"),
-};
-
 const formElements = {
-    name: document.querySelector("[name='cc_name']"),
-    numbers: document.querySelector("[name='cc_numbers']"),
-    month: document.querySelector("[name='cc_month']"),
-    year: document.querySelector("[name='cc_year']"),
-    cvv: document.querySelector("[name='cc_cvv']"),
-    form: document.getElementById("cc_form"),
+    cardHolder: document.getElementById("cardHolderInput"),
+    cardNumber: document.getElementById("cardNumberInput"),
+    expiryMonth: document.getElementById("expiryMonthInput"),
+    expiryYear: document.getElementById("expiryYearInput"),
+    cvv: document.getElementById("cvvInput"),
+    form: document.getElementById("creditCardForm"),
 };
 
-const cCard = document.querySelector(".c_card");
+const cardInfoElements = {
+    cardHolderName: document.getElementById("cardHolderName"),
+    cardNumber: document.getElementById("cardNumber"),
+    expiryMonth: document.getElementById("expiryMonth"),
+    expiryYear: document.getElementById("expiryYear"),
+    cvv: document.getElementById("cvv"),
+};
 
-// Get current month and year
-const currentMonth = year.toLocaleDateString('en', { month: '2-digit' });
-const currentYear = year.toLocaleDateString('en', { year: '2-digit' });
+const creditCard = document.querySelector(".credit_card");
 
-// Initialize month and year displays
-cardInfoElements.month.innerText = currentMonth;
-cardInfoElements.year.innerText = currentYear;
+// Get the current currentDate
+const currentDate = new Date();
+const currentYear = currentDate.getFullYear();
+const currentMonth = currentDate.getMonth() + 1; // Adding 1 because getMonth() returns zero-based index
+const numberOfYears = 10;
 
-// Update card name based on input
-formElements.name.addEventListener("input", function () {
-    cardInfoElements.name.innerText = formElements.name.value.length < 1 ? "Mr. John Doe" : formElements.name.value;
-});
+for (let i = 0; i < numberOfYears; i++) {
+    const currentDate = currentYear + i;
+    const option = document.createElement("option");
+    option.value = currentDate.toString().slice(-2);
+    option.text = currentDate.toString().slice(-2);
 
-// Update card numbers, masking digits as needed
-formElements.numbers.addEventListener("input", function () {
-    const ccNumbersValue = formElements.numbers.value;
-    const brand = cc_brand_id(ccNumbersValue);
-
-    if (ccNumbersValue.length < 1) {
-        cardInfoElements.number.innerText = "**** **** **** 3221";
-    } else {
-        let maskedNumbers = '';
-        if (brand === "amex") {
-            maskedNumbers = `${ccNumbersValue.substr(0, 4).replace(/[0-9]/g, '*')} ${ccNumbersValue.substr(4, 6).replace(/[0-9]/g, '*')} ${ccNumbersValue.substr(10, 5)}`;
-            formElements.numbers.setAttribute("maxlength", "15");
-        } else if (brand === "visa" || brand === "mastercard") {
-            maskedNumbers = `${ccNumbersValue.substr(0, 4).replace(/[0-9]/g, '*')} ${ccNumbersValue.substr(4, 4).replace(/[0-9]/g, '*')} ${ccNumbersValue.substr(8, 4).replace(/[0-9]/g, '*')} ${ccNumbersValue.substr(12, 4)}`;
-            formElements.numbers.setAttribute("maxlength", "16");
-        }
-        cardInfoElements.number.innerText = maskedNumbers;
+    if (i === 0) {
+        option.setAttribute('selected', 'selected');
     }
 
-    const ccBrandImage = document.querySelector(".ccBrand");
-    if (brand === "unknown") {
-        if (ccBrandImage) {
-            ccBrandImage.remove();
+    formElements.expiryYear.appendChild(option);
+}
+
+cardInfoElements.expiryMonth.innerText = currentMonth.toString().padStart(2, "0");
+cardInfoElements.expiryYear.innerText = currentYear.toString().slice(-2);
+
+function updateMonthOptions() {
+    const currentInputYear = formElements.expiryYear.value;
+
+    formElements.expiryMonth.innerHTML = "";
+
+    if (currentInputYear === currentYear.toString().slice(-2)) {
+        for (let i = currentMonth; i <= 12; i++) {
+            const option = document.createElement("option");
+            option.value = i.toString().padStart(2, "0"); // Ensuring two-digit format
+            option.text = i.toString().padStart(2, "0");
+
+            if (currentMonth === i) {
+                option.setAttribute('selected', 'selected');
+            }
+
+            formElements.expiryMonth.appendChild(option);
         }
+    } else if (currentInputYear > currentYear.toString().slice(-2)) {
+
+        for (let i = 1; i <= 12; i++) {
+            const option = document.createElement("option");
+            option.value = i.toString().padStart(2, "0"); // Ensuring two-digit format
+            option.text = i.toString().padStart(2, "0");
+
+            if (currentMonth === i) {
+                option.setAttribute('selected', 'selected');
+            }
+
+            formElements.expiryMonth.appendChild(option);
+        }
+    }
+}
+
+updateMonthOptions();
+
+formElements.cardHolder.addEventListener("input", function () {
+    cardInfoElements.cardHolderName.innerText = formElements.cardHolder.value || formElements.cardHolder.getAttribute("placeholder");
+});
+
+let currentBrand = '';
+
+formElements.cardNumber.addEventListener("input", function () {
+    const cardNumberValue = formElements.cardNumber.value;
+    const brand = creditCardValidator(cardNumberValue);
+
+    let maskedNumbers = '';
+
+    if (cardNumberValue.length < 1) {
+        maskedNumbers = formElements.cardNumber.getAttribute("placeholder");
+    } else if (brand === "amex") {
+        formElements.cardNumber.setAttribute("maxlength", "15");
+        return maskedNumbers = `${cardNumberValue.substr(0, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(4, 6).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(10, 5)}`;
     } else {
-        if (!ccBrandImage) {
-            const img = document.createElement("img");
-            img.classList.add("ccBrand");
-            img.setAttribute("alt", `${brand} card`);
-            document.querySelector(".c_card_front").append(img);
-            img.src = `assets/svgs/${brand}.svg`;
-        }
+        maskedNumbers = `${cardNumberValue.substr(0, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(4, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(8, 4).replace(/[0-9]/g, '*')} ${cardNumberValue.substr(12, 4)}`;
+        formElements.cardNumber.setAttribute("maxlength", "16");
+    }
+
+    cardInfoElements.cardNumber.innerText = maskedNumbers;
+
+    if (currentBrand !== brand) {
+        document.querySelector(".card_brand_logo").src = `assets/svgs/${brand}.svg`;
+        currentBrand = brand;  // Update the current brand
     }
 });
 
-// Update card expiration month
-formElements.month.addEventListener("change", function () {
-    cardInfoElements.month.innerText = formElements.month.value.length < 1 ? currentMonth : formElements.month.value;
+// Store the original card number and card svv when the input is focused 
+let originalCardNumber = "";
+let isOriginalCardNumberFilled = false;
+let originalCvv = "";
+let isOriginalCvvFilled = false;
+
+formElements.cardNumber.addEventListener("blur", function () {
+    let cardNumberValue = formElements.cardNumber.value;
+    const cardNumberLength = formElements.cardNumber.getAttribute("maxlength");
+
+    if (cardNumberValue.length == cardNumberLength) {
+        originalCardNumber = cardNumberValue;
+
+        // Mask the card number
+        formElements.cardNumber.value = maskCardNumber(cardNumberValue, cardNumberLength);
+
+        isOriginalCardNumberFilled = true;
+    }
 });
 
-// Update card expiration year
-formElements.year.addEventListener("change", function () {
-    cardInfoElements.year.innerText = formElements.year.value.length < 1 ? currentYear : formElements.year.value;
+formElements.cardNumber.addEventListener("focus", function () {
+
+    if (isOriginalCardNumberFilled) {
+        // Restore the card number
+        formElements.cardNumber.value = originalCardNumber;
+    }
+
+    isOriginalCardNumberFilled = false;
 });
 
-// Update card CVV, masking digits as needed
-formElements.cvv.addEventListener("input", function () {
-    cCard.classList.add("back_visible");
-    cardInfoElements.cvv.innerText = formElements.cvv.value.length < 1 ? "***" : formElements.cvv.value.substr(0, 3).replace(/[0-9]/g, '*');
-});
+function maskCardNumber(cardNumber, cardNumberLength) {
+    // Remove any existing spaces and non-numeric characters
+    cardNumber = cardNumber.replace(/\s+/g, '').replace(/\D/g, '');
 
-// Hide CVV input when blurred
+    // Determine the number of digits to mask based on cardNumberLength
+    let digitsToMask = (cardNumberLength == 16) ? 4 : 5;
+
+    // Mask all digits except the last specified digits
+    let maskedDigits = "*".repeat(cardNumber.length - digitsToMask) + cardNumber.slice(-digitsToMask);
+
+    // Insert spaces for formatting
+    if (cardNumberLength == 16) {
+        // For 16-digit card numbers, insert a space after every four digits
+        maskedDigits = maskedDigits.replace(/(.{4})(.{4})(.{4})/, '$1 $2 $3 ');
+    } else if (cardNumberLength == 15) {
+        // For 15-digit card numbers, insert a space after the first 4 digits
+        maskedDigits = maskedDigits.replace(/(.{4})(.{6})(.{5})/, '$1  $2  $3');
+    }
+
+    return maskedDigits.trim(); // Trim any trailing spaces and return
+}
+
 formElements.cvv.addEventListener("blur", function () {
-    if (cCard.classList.contains("back_visible")) {
-        cCard.classList.remove("back_visible");
+    let cvvValue = formElements.cvv.value;
+
+    if (cvvValue.length == 3) {
+        originalCvv = cvvValue;
+
+        // Mask the CVV
+        formElements.cvv.value = maskCVV(cvvValue);
+
+        isOriginalCvvFilled = true;
     }
 });
 
-// Form submission handler
+formElements.cvv.addEventListener("focus", function () {
+
+    if (isOriginalCvvFilled) {
+        // Restore the original CVV
+        formElements.cvv.value = originalCvv;
+    }
+
+    isOriginalCvvFilled = false;
+});
+
+function maskCVV(cvv) {
+    // Mask all digits
+    return "*".repeat(cvv.length);
+}
+
+formElements.expiryMonth.addEventListener("change", function () {
+    cardInfoElements.expiryMonth.innerText = formElements.expiryMonth.value;
+});
+
+formElements.expiryYear.addEventListener("change", function () {
+    cardInfoElements.expiryYear.innerText = formElements.expiryYear.value;
+
+    updateMonthOptions();
+});
+
+formElements.cvv.addEventListener("input", function () {
+
+    if (!creditCard.classList.contains("back_visible")) {
+        creditCard.classList.add("back_visible");
+    }
+
+    cardInfoElements.cvv.innerText = formElements.cvv.value.replace(/\d/g, "*") || "***";
+});
+
+formElements.cvv.addEventListener("blur", function () {
+    creditCard.classList.remove("back_visible");
+});
+
 formElements.form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    const jsonData = {
-        cName: formElements.name.value,
-        cNumbers: formElements.numbers.value,
-        cMonth: formElements.month.value,
-        cYear: formElements.year.value,
-        cCvv: formElements.cvv.value,
-    };
+    if (isOriginalCardNumberFilled && isOriginalCvvFilled) {
+        const formData = {
+            cardHolder: formElements.cardHolder.value,
+            cardNumber: originalCardNumber,
+            expiryMonth: formElements.expiryMonth.value,
+            expiryYear: formElements.expiryYear.value,
+            cvv: originalCvv,
+        };
+        console.log(formData);
+    }
 
-    console.log(jsonData);
 });

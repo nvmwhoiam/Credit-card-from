@@ -1,0 +1,536 @@
+//MAIN CSS VARS START
+@mixin Dflex($jscntnt) {
+    display: flex;
+    justify-content: $jscntnt;
+    align-items: center;
+}
+
+@mixin bckimgCenter {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+@mixin grids($tmplt, $cgap, $rgap) {
+    display: grid;
+    grid-template-columns: repeat($tmplt, 1fr);
+    grid-column-gap: $cgap;
+    grid-row-gap: $rgap;
+}
+
+@mixin position($position, $top: null, $bottom: null, $left: null, $right: null) {
+    position: $position;
+
+    @if $top {
+        top: $top;
+    }
+
+    @if $bottom {
+        bottom: $bottom;
+    }
+
+    @if $left {
+        left: $left;
+    }
+
+    @if $right {
+        right: $right;
+    }
+}
+
+@mixin posCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
+@mixin hideScroll {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+$mainColour: #663399;
+
+$fontColourSec: hsl(0, 0%, 70%);
+
+$sm_p: 8px;
+$md_p: 16px;
+
+$brRad: 12px;
+$headlineFontSize: 20px;
+
+$borderColor: hwb(0 100% 0% / 0.1);
+
+$lowOpacity: rgba(0, 0, 0, 0.1);
+$lowOpacityHover: rgba(0, 0, 0, 0.2);
+
+$animSpeed :400ms ease;
+
+:root {
+    --BackColour: hsl(198, 20%, 17%);
+    --BackColour2: hsl(200, 21%, 27%);
+    --FontColour: #F1E5E5;
+}
+
+:root:has(body.dark) {
+    --BackColour: hsl(0, 0%, 15%) !important;
+    --BackColour2: hsl(0, 0%, 20%) !important;
+    --FontColour: #e6e6e6;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --BackColour: hsl(0, 0%, 15%);
+        --BackColour2: hsl(0, 0%, 20%);
+        --FontColour: #e6e6e6;
+    }
+}
+
+// @media (prefers-color-scheme: dark) {
+//     var(--BackColour): hsl(221, 61%, 10%);
+//     var(--BackColour2): hsl(221, 51%, 16%);
+// }
+
+// @media (prefers-color-scheme: light) {
+//     var(--BackColour): hsl(221, 61%, 10%);
+//     var(--BackColour2): hsl(221, 51%, 16%);
+// }
+
+//MAIN CSS VARS END
+
+* {
+    outline: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    // user-select: none;
+    font-family: "Roboto", sans-serif;
+    color: var(--FontColour);
+    background-color: var(--BackColour);
+    // scrollbar-gutter: stable;
+
+    &.overflow {
+        overflow-y: hidden;
+    }
+
+    a {
+        display: inline-block;
+        text-decoration: underline;
+        color: inherit;
+
+        &:focus {
+            text-decoration: none;
+            outline: none;
+            border: none;
+            border-radius: 0;
+        }
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #555;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #282828;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ddd;
+}
+
+p,
+small,
+b,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
+$fs_xs: 0.75rem; // 12px
+$fs_s : 0.875rem; // 14px
+$fs_l :1.25rem; // 20px
+$fs_xl: 1.5rem; // 24px
+$fs_xxl: 1.75rem; // 28px
+$fs_xxxl : 2rem; // 32px
+
+small {
+    font-size: 12px;
+    color: $fontColourSec;
+}
+
+p {
+    font-size: 0.875rem;
+    color: $fontColourSec;
+}
+
+li {
+    text-decoration: none;
+    list-style: none;
+}
+
+img {
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+textarea,
+select,
+input[type="password"],
+input[type="text"],
+input[type="file"],
+input[type="number"],
+input[type="email"],
+input[type="url"],
+input[type="search"] {
+    width: 100%;
+    padding: $md_p;
+    font-family: inherit;
+    font-size: 16px;
+    border: 1px solid $borderColor;
+    color: var(--FontColour);
+    background-color: transparent;
+    transition: background-color $animSpeed, border-color $animSpeed;
+
+    &.invalid {
+        border-color: red;
+    }
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+button {
+    font-family: inherit;
+    color: var(--FontColour);
+    display: inline-block;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 16px;
+    transition: background-color $animSpeed;
+
+    &:not(.text_btn) {
+        border-radius: $brRad;
+    }
+
+    &.btn_btn {
+        padding: calc($sm_p * 2) calc($md_p * 2);
+    }
+
+    &.text_btn {
+        text-decoration: underline;
+        margin: 0;
+        padding: 0;
+
+        &:hover,
+        &:focus {
+            text-decoration: none;
+        }
+    }
+
+    &.btn_accept {
+        background-color: hsl(126, 69%, 25%);
+    }
+
+    &.btn_reject {
+        background-color: hsl(354, 70%, 25%);
+    }
+
+    &.btn_accent {
+        background-color: $mainColour;
+    }
+
+    &.btn_primary {
+        padding: calc($sm_p * 2) calc($md_p * 2);
+        background-color: $mainColour;
+    }
+
+    &[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    &:hover {
+        background-color: $lowOpacityHover;
+    }
+}
+
+.btn_icon {
+    width: 48px;
+    height: 48px;
+    @include Dflex(center);
+
+    i {
+        font-size: $headlineFontSize;
+        width: 40px;
+        height: 40px;
+        display: block;
+        @include Dflex(center);
+        border-radius: $brRad;
+    }
+}
+
+.a_primary {
+    padding: calc($sm_p * 1.5) calc($md_p * 1.5);
+    background-color: $mainColour;
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 576px) {
+    .GRBg2FHmd9 {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 576px) {
+    .GRBg2FHmd9 {
+        width: 540px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .GRBg2FHmd9 {
+        width: 720px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+    .GRBg2FHmd9 {
+        width: 960px;
+        margin: 0 auto;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .GRBg2FHmd9 {
+        width: 1140px;
+        margin: 0 auto;
+    }
+}
+
+//MAIN CSS VARS END
+
+main {
+    @include Dflex(center);
+    padding: $md_p;
+
+    .credit_card_container {
+        width: 100%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .credit_card {
+            width: 320px;
+            height: 204px;
+            position: relative;
+        }
+
+        .credit_card_front,
+        .credit_card_back {
+            width: 100%;
+            height: 100%;
+            padding: $md_p;
+            border-radius: $brRad;
+            background: linear-gradient(to right, $mainColour, rgb(133, 105, 161));
+            position: absolute;
+            backface-visibility: hidden;
+            transition: all $animSpeed;
+
+            .title {
+                font-size: 14px;
+                margin-bottom: $sm_p;
+                color: var(--BackColour);
+            }
+        }
+
+        .credit_card_front {
+            .wifi_icon {
+                width: 48px;
+                height: 48px;
+                @include position(absolute, $top: $md_p, $left: $md_p);
+            }
+
+            .card_brand_logo {
+                width: 48px;
+                height: 48px;
+                @include position(absolute, $top: $md_p, $right: $md_p);
+            }
+
+            .credit_card_number_container {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 280px;
+
+                h2 {
+                    margin-bottom: 5px
+                }
+
+                .card_number {
+                    font-size: 20px;
+                    letter-spacing: 5px;
+                }
+            }
+
+            .credit_card_holder_container,
+            .credit_card_expiry_container {
+                position: absolute;
+                bottom: $md_p;
+            }
+
+            .credit_card_holder_container {
+                left: $md_p;
+                text-transform: capitalize;
+            }
+
+            .credit_card_expiry_container {
+                right: $md_p;
+            }
+        }
+
+        .credit_card_back {
+            transform: rotateY(180deg);
+
+            .stripe {
+                width: 100%;
+                height: 30px;
+                background-color: #232f34;
+                @include position(absolute, $top: $md_p, $left: 0);
+            }
+
+            .cvvStripe {
+                width: 100%;
+                height: 30px;
+                background-color: #d4f1f4;
+                @include position(absolute, $top: 50%, $left: 0);
+                transform: translateY(-50%);
+
+                .cvv {
+                    position: absolute;
+                    top: 50%;
+                    right: $md_p;
+                    transform: translateY(-50%);
+                    color: var(--BackColour2);
+                }
+
+            }
+        }
+
+        .credit_card:hover .credit_card_back {
+            transform: rotateY(0);
+        }
+
+        .credit_card.back_visible {
+
+            .credit_card_front {
+                transform: rotateY(-180deg);
+            }
+
+            .credit_card_back {
+                transform: rotateY(0);
+
+            }
+        }
+
+        .credit_card:hover .credit_card_front {
+            transform: rotateY(-180deg);
+        }
+    }
+
+    .credit_card_form {
+        width: 100%;
+        border: 1px solid $borderColor;
+        display: flex;
+        flex-direction: column;
+        gap: $md_p;
+        margin-top: -102px;
+        padding: 122px $md_p $md_p $md_p;
+
+        .form_input {
+            label {
+                display: block;
+                margin-bottom: 3px;
+            }
+        }
+
+        button {
+            background-color: $mainColour;
+            border-radius: 0;
+        }
+    }
+
+
+    .form_container {
+        display: flex;
+        gap: $md_p;
+
+        .form_input {
+            width: 100%;
+
+            &_container {
+                display: flex;
+                gap: $md_p;
+                width: 100%;
+
+                select {
+                    min-width: 80px;
+                    max-height: 200px;
+                }
+
+                option {
+                    background-color: var(--BackColour2);
+
+                    &.past_month {
+                        color: $borderColor;
+                    }
+                }
+            }
+        }
+
+        button {
+            border-radius: 0;
+        }
+    }
+
+    @media only screen and (max-width: 768px) {}
+
+    @media only screen and (min-width: 769px) {}
+}

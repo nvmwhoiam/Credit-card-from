@@ -6,85 +6,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/index.css">
-    <script defer src="assets/js/index.js"></script>
-    <title>Credit card Form</title>
+    <title>Credit Card Form</title>
 </head>
 
 <body>
 
     <main>
 
-        <div class="cc_body">
+        <div class="credit_card_container">
 
-            <div class="c_card">
+            <div class="credit_card">
 
-                <div class="c_card_front">
+                <div class="credit_card_front">
 
-                    <img src="assets/svgs/wifi.svg" alt="" class="ccWifi">
+                    <img src="assets/svgs/contactless.svg" alt="wifi svg" class="wifi_icon">
+                    <img src="assets/svgs/unknown.svg" alt="credit card svg" class="card_brand_logo">
 
-                    <img src="assets/svgs/amex.svg" alt="" class="ccBrand">
-
-                    <div class="cc_number_body">
-
-                        <h3 class="ccName">Card Number</h3>
-
-                        <div id="ccNumberCard" class="ccDigits">
+                    <div class="credit_card_number_container">
+                        <h3 class="title">Card Number</h3>
+                        <div id="cardNumber" class="card_number">
                             **** **** **** 3221
                         </div>
-
                     </div>
 
-                    <div class="cc_name_body">
-
-                        <h3 class="ccName">Card Holder</h3>
-
-                        <h2 id="ccNameCard">John Doe</h2>
-
+                    <div class="credit_card_holder_container">
+                        <h3 class="title">Card Holder</h3>
+                        <div class="card_holder_name" id="cardHolderName">Mr. John Doe</div>
                     </div>
 
-                    <div class="cc_valid_body">
-
-                        <h3 class="ccName">Expires</h3>
-
-                        <span class="ccMonth" id="ccMonthCard">6</span>
-
+                    <div class="credit_card_expiry_container">
+                        <h3 class="title">Expires</h3>
+                        <span class="month" id="expiryMonth">00</span>
                         <b>/</b>
-
-                        <span class="ccYear" id="ccYearCard">23</span>
-
+                        <span class="year" id="expiryYear">00</span>
                     </div>
 
                 </div>
 
-                <div class="c_card_back">
-
+                <div class="credit_card_back">
                     <div class="stripe"></div>
-
                     <div class="cvvStripe">
-
-                        <span class="ccCvv" id="ccCvvCard">***</span>
-
+                        <span class="cvv" id="cvv">***</span>
                     </div>
-
                 </div>
 
             </div>
 
-            <form method="post" action="#" autocomplete="off" id="cc_form" class="cc_form">
+            <form method="post" action="#" autocomplete="off" id="creditCardForm" class="credit_card_form">
 
                 <div class="form_input">
 
-                    <label class="cc_name" for="ccNameForm"> Card Holder</label>
+                    <label class="credit_card_name" for="cardHolderInput">
+                        Card Holder
+                    </label>
 
-                    <input type="text" name="cc_name" id="ccNameForm" placeholder="John Doe" required>
+                    <input type="text" name="credit_card_name" id="cardHolderInput" placeholder="Mr. John Doe"
+                        maxlength="30" required>
 
                 </div>
 
                 <div class="form_input">
 
-                    <label class="cc_number" for="ccNumberForm"> Card number</label>
+                    <label class="credit_card_number" for="cardNumberInput">
+                        Card number
+                    </label>
 
-                    <input type="text" name="cc_numbers" id="ccNumberForm" inputmode="numeric" pattern="\d*"
+                    <input type="text" name="credit_card_numbers" id="cardNumberInput" value="" inputmode="numeric"
                         maxlength="16" placeholder="**** **** **** 3221" required>
 
                 </div>
@@ -93,37 +80,15 @@
 
                     <div class="form_input">
 
-                        <label class="cc_month" for="ccMonthForm"> Valid through</label>
+                        <label class="credit_card_month" for="expiryMonthInput">
+                            Expires
+                        </label>
 
                         <div class="form_input_container">
 
-                            <select class="month" name="cc_month" id="ccMonthForm" required>
-                                <option value="">Month</option>
-                                <option value="01">01</option>
-                                <option value="02">02</option>
-                                <option value="03">03</option>
-                                <option value="04">04</option>
-                                <option value="05">05</option>
-                                <option selected value="06">06</option>
-                                <option value="07">07</option>
-                                <option value="08">08</option>
-                                <option value="09">09</option>
-                                <option value="10">10</option>
-                                <option value="11">11</option>
-                                <option value="12">12</option>
-                            </select>
+                            <select class="month" name="credit_card_month" id="expiryMonthInput" required> </select>
 
-                            <select class="cc_year" name="cc_year" required>
-                                <option>Year</option>
-                                <option selected value="23">2023</option>
-                                <option value="24">2024</option>
-                                <option value="25">2025</option>
-                                <option value="26">2026</option>
-                                <option value="27">2027</option>
-                                <option value="28">2028</option>
-                                <option value="29">2029</option>
-                                <option value="30">2030</option>
-                            </select>
+                            <select class="credit_card_year" name="expiryYear" id="expiryYearInput" required> </select>
 
                         </div>
 
@@ -131,11 +96,10 @@
 
                     <div class="form_input">
 
-                        <label class="cc_cvv" for="ccCvvForm"> CVV</label>
+                        <label class="credit_card_cvv" for="cvvInput"> CVV</label>
 
-                        <input type="text" placeholder="***" name="cc_cvv" id="ccCvvForm" inputmode="numeric"
-                            pattern="\d*" maxlength="3" required>
-
+                        <input type="text" placeholder="***" name="cvv" id="cvvInput" inputmode="numeric" maxlength="3"
+                            required>
                     </div>
 
                 </div>
@@ -147,6 +111,8 @@
         </div>
 
     </main>
+
+    <script src="assets/js/index.js"></script>
 
 </body>
 
