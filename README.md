@@ -32,7 +32,7 @@ To run the Credit Card Form App locally, follow these steps:
 1. Clone this repository to your local machine:
 
    ```bash
-   git clone https://github.com/nvmwhoiam/Credit-card-from.git
+   git clone https://github.com/nvmwhoiam/Credit-card-form.git
    ```
 
 2. Open the `index.html` file in your web browser.
